@@ -1,0 +1,184 @@
+{
+  "study_id": "MRD-4820-201",
+  "title": "HORIZON-2: A Phase 2 Study of MRD-4820 in Adults with Advanced Non-Small Cell Lung Cancer",
+  "short_title": "HORIZON-2",
+  "sponsor": "Meridian Therapeutics",
+  "indication": "Advanced or metastatic non-small cell lung cancer (NSCLC)",
+  "phase": "Phase 2",
+  "investigational_product": "MRD-4820",
+  "site_name": "Riverside Clinical Research Center",
+  "coordinator_name": "Sarah Chen, RN",
+  "coordinator_phone": "(555) 014-2200",
+  "coordinator_hours": "Monday to Friday, 8:00 AM to 5:00 PM",
+  "after_hours_line": "(555) 014-2911",
+  "visits": [
+    {
+      "id": "SCR",
+      "name": "Screening",
+      "type": "screening",
+      "study_day": -28,
+      "window_days": 14,
+      "estimated_duration_minutes": 240,
+      "procedures": [
+        "concomitant_med_review",
+        "physical_exam",
+        "vital_signs",
+        "ecg_12_lead",
+        "venipuncture_safety",
+        "urine_collection",
+        "pregnancy_test",
+        "epro_administration"
+      ],
+      "overrides": {}
+    },
+    {
+      "id": "V1",
+      "name": "Baseline (Visit 1)",
+      "type": "baseline",
+      "study_day": 1,
+      "window_days": 0,
+      "estimated_duration_minutes": 300,
+      "procedures": [
+        "ae_review",
+        "concomitant_med_review",
+        "vital_signs",
+        "physical_exam",
+        "ecg_12_lead",
+        "venipuncture_safety",
+        "venipuncture_pk",
+        "pregnancy_test",
+        "epro_administration",
+        "imp_administration"
+      ],
+      "overrides": {}
+    },
+    {
+      "id": "V2",
+      "name": "Visit 2",
+      "type": "treatment",
+      "study_day": 15,
+      "window_days": 2,
+      "estimated_duration_minutes": 270,
+      "procedures": [
+        "ae_review",
+        "concomitant_med_review",
+        "vital_signs",
+        "venipuncture_safety",
+        "venipuncture_pk",
+        "epro_administration",
+        "imp_administration"
+      ],
+      "overrides": {}
+    },
+    {
+      "id": "V3",
+      "name": "Visit 3",
+      "type": "treatment",
+      "study_day": 29,
+      "window_days": 2,
+      "estimated_duration_minutes": 285,
+      "procedures": [
+        "ae_review",
+        "concomitant_med_review",
+        "vital_signs",
+        "ecg_12_lead",
+        "venipuncture_safety",
+        "venipuncture_pk",
+        "pregnancy_test",
+        "epro_administration",
+        "imp_administration"
+      ],
+      "overrides": {}
+    },
+    {
+      "id": "V4",
+      "name": "Visit 4",
+      "type": "treatment",
+      "study_day": 43,
+      "window_days": 2,
+      "estimated_duration_minutes": 270,
+      "procedures": [
+        "ae_review",
+        "concomitant_med_review",
+        "vital_signs",
+        "venipuncture_safety",
+        "venipuncture_pk",
+        "epro_administration",
+        "imp_administration"
+      ],
+      "overrides": {}
+    },
+    {
+      "id": "EOT",
+      "name": "End of Treatment",
+      "type": "end_of_treatment",
+      "study_day": 85,
+      "window_days": 7,
+      "estimated_duration_minutes": 240,
+      "procedures": [
+        "ae_review",
+        "concomitant_med_review",
+        "physical_exam",
+        "vital_signs",
+        "ecg_12_lead",
+        "venipuncture_safety",
+        "urine_collection",
+        "pregnancy_test",
+        "epro_administration"
+      ],
+      "overrides": {}
+    }
+  ],
+  "study_faq": [
+    {
+      "id": "transportation",
+      "question": "Is transportation reimbursed?",
+      "answer": "Yes. The study reimburses parking, public transit, or rideshare costs for getting to and from your visits. Save your receipts and submit them to your study coordinator. If getting to the clinic is a barrier, ask the team — there are options to help."
+    },
+    {
+      "id": "running_late",
+      "question": "What should I do if I'm running late?",
+      "answer": "Call the site as soon as you can at (555) 014-2200. Most visits have some flexibility built in, and the team would rather hear from you and adjust than have you skip the visit."
+    },
+    {
+      "id": "missed_visit",
+      "question": "What if I need to reschedule a visit?",
+      "answer": "Call your coordinator as soon as you know. Many visits have a window of a few days, so there's often room to move things. The earlier you let them know, the easier it is."
+    },
+    {
+      "id": "after_hours",
+      "question": "Who do I call after hours or on weekends?",
+      "answer": "Call (555) 014-2911 — it's the after-hours line and someone is always available. For anything that feels like an emergency, call 911 first and then notify the study team afterward."
+    },
+    {
+      "id": "what_to_wear",
+      "question": "What should I wear to my visits?",
+      "answer": "Comfortable clothing with sleeves that roll up easily for blood draws and IV starts. If your visit includes an ECG, a top that opens or comes off easily helps."
+    },
+    {
+      "id": "food_at_clinic",
+      "question": "Will food be available at the clinic?",
+      "answer": "Light snacks and drinks are available, especially on infusion days. For longer visits, you're welcome to bring your own meal — just check with your coordinator if your visit has fasting requirements."
+    },
+    {
+      "id": "bring_someone",
+      "question": "Can I bring a family member or friend?",
+      "answer": "Yes — a support person is welcome at most visits. Let your coordinator know in advance, especially for the longer infusion days."
+    },
+    {
+      "id": "results_sharing",
+      "question": "Will I get my test results?",
+      "answer": "If anything in your safety labs needs follow-up, your coordinator will reach out. Routine results aren't shared visit-by-visit, but you can ask your study team anytime."
+    },
+    {
+      "id": "stop_participation",
+      "question": "Can I stop participating?",
+      "answer": "Yes. You can leave the study at any time, for any reason, without affecting your regular medical care. If you're considering it, please talk with your study coordinator first — they can answer questions and help with the next steps."
+    },
+    {
+      "id": "cost",
+      "question": "Will I be billed for any of this?",
+      "answer": "Study-related visits, procedures, and the study drug are covered by the sponsor. You should not receive bills for anything that's part of the study. If you do, send it to your coordinator and they'll sort it out."
+    }
+  ]
+}

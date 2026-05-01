@@ -1,0 +1,248 @@
+{
+  "venipuncture_pk": {
+    "code": "venipuncture_pk",
+    "patient_friendly_name": "Blood draw for study measurements (PK)",
+    "plain_language_description": "A nurse will take a small amount of blood from a vein in your arm. The samples help the study team measure how the study drug moves through your body. It usually takes about 10 minutes.",
+    "estimated_duration_minutes": 15,
+    "pre_requirements": [
+      { "type": "fasting", "hours": 8, "description": "No food or drinks (except water) for 8 hours before this visit." },
+      { "type": "hold_medication", "applies_to": "study_drug", "description": "Do not take your morning study drug dose until after the blood draw." }
+    ],
+    "post_requirements": [
+      { "type": "patient_guidance", "description": "Keep the bandage on for at least 1 hour. Avoid heavy lifting with that arm for the rest of the day." }
+    ],
+    "items_to_bring": [],
+    "common_questions": [
+      {
+        "question": "How much blood will be taken?",
+        "answer": "Usually about 2 to 3 teaspoons total across all the tubes. It's a small amount and your body replaces it quickly."
+      },
+      {
+        "question": "Will it hurt?",
+        "answer": "You'll feel a small pinch when the needle goes in. Most people find it manageable. Let the nurse know if you've had trouble with blood draws before — they can help you stay comfortable."
+      },
+      {
+        "question": "Why do I need to fast?",
+        "answer": "Fasting helps make sure the study drug measurements are accurate and not affected by what you ate. Plain water is fine — please stay hydrated."
+      }
+    ]
+  },
+  "venipuncture_safety": {
+    "code": "venipuncture_safety",
+    "patient_friendly_name": "Blood draw for safety labs",
+    "plain_language_description": "A nurse will take a small blood sample to check your overall health — things like your blood counts, kidney, and liver function. This helps the study team make sure you're doing well on the study.",
+    "estimated_duration_minutes": 10,
+    "pre_requirements": [],
+    "post_requirements": [
+      { "type": "patient_guidance", "description": "Keep the bandage on for at least 1 hour after the draw." }
+    ],
+    "items_to_bring": [],
+    "common_questions": [
+      {
+        "question": "Do I need to fast for this?",
+        "answer": "Not for the safety labs alone. If your visit also includes a PK blood draw, the fasting instructions for that one apply."
+      },
+      {
+        "question": "When will I get my results?",
+        "answer": "Your study coordinator will reach out if anything needs follow-up. Routine results aren't typically shared visit-by-visit, but you can ask anytime."
+      }
+    ]
+  },
+  "ecg_12_lead": {
+    "code": "ecg_12_lead",
+    "patient_friendly_name": "Heart tracing (12-lead ECG)",
+    "plain_language_description": "A technician will place small sticky pads on your chest, arms, and legs to record your heart's electrical activity for about 30 seconds. It's painless and you'll be lying down. The whole thing usually takes 10 minutes including setup.",
+    "estimated_duration_minutes": 10,
+    "pre_requirements": [
+      { "type": "rest", "minutes": 5, "description": "You'll rest quietly for about 5 minutes before the recording so your heart rate is steady." }
+    ],
+    "post_requirements": [],
+    "items_to_bring": [],
+    "common_questions": [
+      {
+        "question": "Will I feel anything?",
+        "answer": "No — the machine only listens to your heart. Nothing is sent into your body."
+      },
+      {
+        "question": "Should I avoid coffee beforehand?",
+        "answer": "If your visit includes other procedures with caffeine restrictions, follow those. For the ECG alone, the team prefers you avoid caffeine for a couple of hours so your resting heart rate is more accurate."
+      }
+    ]
+  },
+  "vital_signs": {
+    "code": "vital_signs",
+    "patient_friendly_name": "Vital signs check",
+    "plain_language_description": "A staff member will check your blood pressure, heart rate, breathing rate, temperature, and oxygen level. It takes just a few minutes.",
+    "estimated_duration_minutes": 5,
+    "pre_requirements": [
+      { "type": "rest", "minutes": 5, "description": "You'll sit quietly for a few minutes before your blood pressure is measured." }
+    ],
+    "post_requirements": [],
+    "items_to_bring": [],
+    "common_questions": [
+      {
+        "question": "Why is this measured every visit?",
+        "answer": "It's a quick way to check your overall well-being and catch anything unusual early."
+      }
+    ]
+  },
+  "physical_exam": {
+    "code": "physical_exam",
+    "patient_friendly_name": "Physical examination",
+    "plain_language_description": "The study doctor or nurse practitioner will check you over — listening to your heart and lungs, looking at your skin, checking your reflexes, and asking how you've been feeling.",
+    "estimated_duration_minutes": 20,
+    "pre_requirements": [],
+    "post_requirements": [],
+    "items_to_bring": [
+      { "description": "A list of any new symptoms or changes you've noticed since your last visit, even small ones." }
+    ],
+    "common_questions": [
+      {
+        "question": "Should I mention things that seem minor?",
+        "answer": "Yes — even small changes are useful to share. The doctor would rather hear about something and decide it's nothing than miss it."
+      }
+    ]
+  },
+  "epro_administration": {
+    "code": "epro_administration",
+    "patient_friendly_name": "Study questionnaires",
+    "plain_language_description": "You'll fill out a few questionnaires on a tablet about how you've been feeling — things like fatigue, pain, mood, and daily activities. There are no right or wrong answers; the team just wants your honest experience.",
+    "estimated_duration_minutes": 15,
+    "pre_requirements": [],
+    "post_requirements": [],
+    "items_to_bring": [
+      { "description": "Reading glasses, if you use them." }
+    ],
+    "common_questions": [
+      {
+        "question": "What if I'm not sure how to answer?",
+        "answer": "Pick the answer that feels closest to your experience this past week. If you're stuck on a question, your study coordinator can help you understand what it's asking."
+      },
+      {
+        "question": "Can I take my time?",
+        "answer": "Absolutely. There's no time pressure."
+      }
+    ]
+  },
+  "imp_dispensing": {
+    "code": "imp_dispensing",
+    "patient_friendly_name": "Receiving your study medication",
+    "plain_language_description": "The study pharmacist or coordinator will give you your supply of the study drug to take home, go over how and when to take it, and answer any questions about your dosing.",
+    "estimated_duration_minutes": 15,
+    "pre_requirements": [],
+    "post_requirements": [
+      { "type": "patient_guidance", "description": "Store the medication as instructed (typically at room temperature, away from light and moisture). Bring any unused medication to your next visit." }
+    ],
+    "items_to_bring": [
+      { "description": "Any unused study medication and empty bottles from your last supply." }
+    ],
+    "common_questions": [
+      {
+        "question": "What if I miss a dose at home?",
+        "answer": "Call your study coordinator before deciding what to do. The right answer depends on how late you are and where you are in the schedule."
+      }
+    ]
+  },
+  "imp_administration": {
+    "code": "imp_administration",
+    "patient_friendly_name": "Study drug infusion at the clinic",
+    "plain_language_description": "A nurse will give you the study drug through an IV line in your arm. You'll be reclining comfortably during the infusion. Plan to be at the clinic for a few hours including monitoring time before and after.",
+    "estimated_duration_minutes": 180,
+    "pre_requirements": [
+      { "type": "hydration", "description": "Drink plenty of water in the 24 hours before your visit. Good hydration makes it easier to start the IV." }
+    ],
+    "post_requirements": [
+      { "type": "site_observation", "minutes": 60, "description": "You'll be monitored at the clinic for at least an hour after the infusion finishes." },
+      { "type": "patient_guidance", "description": "Take it easy for the rest of the day. Have someone available to drive you home if possible." }
+    ],
+    "items_to_bring": [
+      { "description": "Comfortable clothing with sleeves that roll up easily." },
+      { "description": "Something to read or watch — most of the time you'll just be sitting." },
+      { "description": "Snacks or a light lunch if your visit spans mealtime (check with your coordinator about timing)." }
+    ],
+    "common_questions": [
+      {
+        "question": "How long will I be at the clinic?",
+        "answer": "Plan for about 4 to 5 hours total, including check-in, the infusion itself, and the observation period afterward."
+      },
+      {
+        "question": "Can someone come with me?",
+        "answer": "Yes — a family member or friend is welcome to keep you company. Your coordinator can let you know about any space limits."
+      }
+    ]
+  },
+  "urine_collection": {
+    "code": "urine_collection",
+    "patient_friendly_name": "Urine sample",
+    "plain_language_description": "You'll provide a urine sample in a private bathroom at the clinic. The staff will give you a labeled cup and simple instructions.",
+    "estimated_duration_minutes": 5,
+    "pre_requirements": [
+      { "type": "hydration", "description": "Drink some water before your visit so you're able to provide a sample comfortably." }
+    ],
+    "post_requirements": [],
+    "items_to_bring": [],
+    "common_questions": [
+      {
+        "question": "What if I can't go right away?",
+        "answer": "That's fine — let the staff know and you can have some water and try again in a bit."
+      }
+    ]
+  },
+  "pregnancy_test": {
+    "code": "pregnancy_test",
+    "patient_friendly_name": "Urine pregnancy test",
+    "plain_language_description": "A standard urine pregnancy test, done in the clinic. Required at each visit for participants who can become pregnant — it's a safety step the protocol requires.",
+    "estimated_duration_minutes": 5,
+    "pre_requirements": [],
+    "post_requirements": [],
+    "items_to_bring": [],
+    "common_questions": [
+      {
+        "question": "Why is this required every visit?",
+        "answer": "Because the study drug isn't safe during pregnancy, the protocol requires regular checks for everyone who could become pregnant. It's a routine safety step."
+      }
+    ]
+  },
+  "concomitant_med_review": {
+    "code": "concomitant_med_review",
+    "patient_friendly_name": "Medication review",
+    "plain_language_description": "Your coordinator will go through all the medications, supplements, and over-the-counter products you're currently taking and update your study record. This helps the team look out for any interactions.",
+    "estimated_duration_minutes": 10,
+    "pre_requirements": [],
+    "post_requirements": [],
+    "items_to_bring": [
+      { "description": "An up-to-date list of all your medications, supplements, and over-the-counter products — including doses and how often you take them. Bottles are fine if a list is hard to put together." }
+    ],
+    "common_questions": [
+      {
+        "question": "Should I include vitamins and supplements?",
+        "answer": "Yes — please mention everything, including vitamins, herbal supplements, and over-the-counter products. Even occasional use of things like ibuprofen is good to mention."
+      },
+      {
+        "question": "What if I started something new since my last visit?",
+        "answer": "Definitely tell your coordinator. New medications are exactly what this review is for."
+      }
+    ]
+  },
+  "ae_review": {
+    "code": "ae_review",
+    "patient_friendly_name": "How you've been feeling",
+    "plain_language_description": "Your coordinator will ask about any new symptoms, side effects, or health changes since your last visit. Anything you share helps the study team monitor your safety.",
+    "estimated_duration_minutes": 10,
+    "pre_requirements": [],
+    "post_requirements": [],
+    "items_to_bring": [
+      { "description": "Notes about anything new you've noticed — when it started, how often, how strong. Even small things are worth mentioning." }
+    ],
+    "common_questions": [
+      {
+        "question": "What counts as a side effect worth mentioning?",
+        "answer": "Anything new or different — a headache, feeling more tired, a rash, changes in appetite or sleep, anything. The team would rather hear about it and decide together whether it matters."
+      },
+      {
+        "question": "What if I'm not sure if it's from the study drug?",
+        "answer": "That's okay — you don't need to know the cause. Just share what you've noticed and the team will help figure it out."
+      }
+    ]
+  }
+}

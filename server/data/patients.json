@@ -1,0 +1,64 @@
+{
+  "maria": {
+    "id": "maria",
+    "name": "Maria Alvarez",
+    "first_name": "Maria",
+    "age": 58,
+    "language": "en",
+    "language_label": "English",
+    "cohort": "Cohort A",
+    "current_visit_id": "V3",
+    "trial_experience": "first_time",
+    "concomitant_meds": [
+      { "name": "Levothyroxine", "dose": "50 mcg", "frequency": "Once daily, morning" },
+      { "name": "Multivitamin", "dose": "1 tablet", "frequency": "Once daily" }
+    ],
+    "history_flags": [],
+    "accessibility_flags": [],
+    "personality_notes": "First-time trial participant. Asks lots of questions. Slightly anxious about procedures, especially blood draws. Tech-comfortable.",
+    "caregiver": null
+  },
+  "james": {
+    "id": "james",
+    "name": "James Whitfield",
+    "first_name": "James",
+    "age": 67,
+    "language": "en",
+    "language_label": "English",
+    "cohort": "Cohort A",
+    "current_visit_id": "V3",
+    "trial_experience": "experienced",
+    "concomitant_meds": [
+      { "name": "Atorvastatin (Lipitor)", "dose": "20 mg", "frequency": "Once daily, evening" },
+      { "name": "Metformin", "dose": "500 mg", "frequency": "Twice daily, with meals" },
+      { "name": "Lisinopril", "dose": "10 mg", "frequency": "Once daily, morning" },
+      { "name": "Omeprazole", "dose": "20 mg", "frequency": "Once daily, before breakfast" }
+    ],
+    "history_flags": [
+      { "type": "vasovagal_history", "description": "History of feeling faint during blood draws — needs to be reclined and may need extra time afterward." }
+    ],
+    "accessibility_flags": [],
+    "personality_notes": "Has participated in two prior trials. Low-key, asks practical questions. Interested in logistics and timing.",
+    "caregiver": null
+  },
+  "wei": {
+    "id": "wei",
+    "name": "Wei Zhang",
+    "first_name": "Wei",
+    "age": 45,
+    "language": "zh",
+    "language_label": "Mandarin",
+    "cohort": "Cohort B",
+    "current_visit_id": "V3",
+    "trial_experience": "first_time",
+    "concomitant_meds": [
+      { "name": "Vitamin D", "dose": "1000 IU", "frequency": "Once daily" }
+    ],
+    "history_flags": [],
+    "accessibility_flags": [
+      { "type": "language_preference", "description": "Prefers all written and spoken communication in Mandarin Chinese." }
+    ],
+    "personality_notes": "Tech-comfortable. Caregiver (spouse) is involved and often attends visits.",
+    "caregiver": { "name": "Lin Zhang", "relationship": "spouse" }
+  }
+}

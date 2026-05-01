@@ -2,6 +2,7 @@ import type {
   AuditEntry,
   ChatResponse,
   ChatTurn,
+  HomeContext,
   Patient,
   PatientVisitContext,
   Ride,
@@ -24,6 +25,20 @@ export async function fetchPatients(): Promise<Patient[]> {
   const r = await fetch('/api/patients')
   if (!r.ok) throw new Error(`Patients fetch failed (${r.status})`)
   return r.json()
+}
+
+export async function fetchHomeContext(
+  patientId: string,
+  timeOffset: TimeOffset,
+): Promise<HomeContext> {
+  const r = await fetch(`/api/home-context?patientId=${patientId}&timeOffset=${timeOffset}`)
+  if (!r.ok) throw new Error(`Home context fetch failed (${r.status})`)
+  return r.json()
+}
+
+export async function completeEpro(patientId: string, assessmentId: string): Promise<void> {
+  const r = await fetch(`/api/epro/${patientId}/${assessmentId}/complete`, { method: 'POST' })
+  if (!r.ok) throw new Error(`Complete failed (${r.status})`)
 }
 
 export async function fetchAuditLog(): Promise<AuditEntry[]> {

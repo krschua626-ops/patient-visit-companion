@@ -23,7 +23,19 @@
       "wheelchair_accessible_required": false,
       "ride_with_caregiver_default": false,
       "notes_for_driver": ""
-    }
+    },
+    "epro_state": {
+      "daily_symptom_diary": { "streak_days": 6, "last_completed_hours_ago": 14 },
+      "weekly_wellbeing": { "last_completed_days_ago": 4 },
+      "pre_visit_check": { "ever_completed": false }
+    },
+    "symptom_history": [
+      { "symptom_id": "fatigue", "current_severity": "moderate", "trend": "worsening", "last_seven_days": ["mild","mild","mild","moderate","moderate","mild","moderate"] },
+      { "symptom_id": "nausea", "current_severity": "mild", "trend": "stable", "last_seven_days": ["mild","mild","none","mild","mild","mild","mild"] },
+      { "symptom_id": "pain", "current_severity": "none", "trend": "stable", "last_seven_days": ["none","mild","none","none","none","none","none"] },
+      { "symptom_id": "appetite", "current_severity": "fair", "trend": "improving", "last_seven_days": ["poor","poor","fair","fair","fair","good","fair"] },
+      { "symptom_id": "sleep_quality", "current_severity": "fair", "trend": "stable", "last_seven_days": ["fair","good","fair","fair","poor","fair","fair"] }
+    ]
   },
   "james": {
     "id": "james",
@@ -53,7 +65,19 @@
       "wheelchair_accessible_required": false,
       "ride_with_caregiver_default": false,
       "notes_for_driver": "Please call on arrival — I'll come down to the lobby."
-    }
+    },
+    "epro_state": {
+      "daily_symptom_diary": { "streak_days": 21, "last_completed_hours_ago": 16 },
+      "weekly_wellbeing": { "last_completed_days_ago": 6 },
+      "pre_visit_check": { "ever_completed": true, "last_completed_days_ago": 14 }
+    },
+    "symptom_history": [
+      { "symptom_id": "fatigue", "current_severity": "mild", "trend": "stable", "last_seven_days": ["mild","mild","mild","mild","none","mild","mild"] },
+      { "symptom_id": "nausea", "current_severity": "none", "trend": "improving", "last_seven_days": ["mild","mild","none","none","none","none","none"] },
+      { "symptom_id": "pain", "current_severity": "mild", "trend": "stable", "last_seven_days": ["mild","mild","mild","none","mild","mild","mild"] },
+      { "symptom_id": "appetite", "current_severity": "good", "trend": "stable", "last_seven_days": ["good","good","fair","good","good","good","good"] },
+      { "symptom_id": "sleep_quality", "current_severity": "good", "trend": "stable", "last_seven_days": ["good","fair","good","good","good","good","good"] }
+    ]
   },
   "wei": {
     "id": "wei",
@@ -80,6 +104,18 @@
       "wheelchair_accessible_required": false,
       "ride_with_caregiver_default": true,
       "notes_for_driver": ""
-    }
+    },
+    "epro_state": {
+      "daily_symptom_diary": { "streak_days": 12, "last_completed_hours_ago": 11 },
+      "weekly_wellbeing": { "last_completed_days_ago": 2 },
+      "pre_visit_check": { "ever_completed": false }
+    },
+    "symptom_history": [
+      { "symptom_id": "fatigue", "current_severity": "moderate", "trend": "stable", "last_seven_days": ["moderate","mild","moderate","moderate","mild","moderate","moderate"] },
+      { "symptom_id": "nausea", "current_severity": "mild", "trend": "improving", "last_seven_days": ["moderate","mild","mild","mild","mild","none","mild"] },
+      { "symptom_id": "pain", "current_severity": "none", "trend": "stable", "last_seven_days": ["none","none","none","none","none","none","none"] },
+      { "symptom_id": "appetite", "current_severity": "fair", "trend": "stable", "last_seven_days": ["fair","fair","fair","good","fair","fair","fair"] },
+      { "symptom_id": "sleep_quality", "current_severity": "fair", "trend": "stable", "last_seven_days": ["fair","fair","poor","fair","fair","fair","fair"] }
+    ]
   }
 }

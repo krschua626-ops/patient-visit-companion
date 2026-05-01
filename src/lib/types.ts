@@ -24,6 +24,21 @@ export interface PatientTransportation {
   notes_for_driver: string
 }
 
+export type SymptomSeverity = 'none' | 'mild' | 'moderate' | 'severe' | 'good' | 'fair' | 'poor'
+
+export interface SymptomEntry {
+  symptom_id: string
+  current_severity: SymptomSeverity
+  trend: 'improving' | 'stable' | 'worsening'
+  last_seven_days: SymptomSeverity[]
+}
+
+export interface EproState {
+  daily_symptom_diary?: { streak_days?: number; last_completed_hours_ago?: number }
+  weekly_wellbeing?: { last_completed_days_ago?: number }
+  pre_visit_check?: { ever_completed: boolean; last_completed_days_ago?: number }
+}
+
 export interface Patient {
   id: string
   name: string
@@ -40,6 +55,43 @@ export interface Patient {
   personality_notes: string
   caregiver: { name: string; relationship: string } | null
   transportation: PatientTransportation
+  epro_state: EproState
+  symptom_history: SymptomEntry[]
+}
+
+export interface EproAssessment {
+  id: string
+  name: string
+  description: string
+  estimated_minutes: number
+  frequency: 'daily' | 'weekly' | 'per_visit'
+  due_time_local?: string
+  due_day?: string
+  instrument: string
+}
+
+export interface NextEproActivity {
+  assessment: EproAssessment
+  status: 'overdue' | 'due_now' | 'due_soon' | 'on_track'
+  due_label: string
+  cta_label: string
+  last_completed_label: string | null
+  streak_days?: number
+}
+
+export interface HomeContext {
+  patient: Patient
+  study: {
+    short_title: string
+    sponsor: string
+    coordinator_name: string
+    coordinator_phone: string
+  }
+  next_epro: NextEproActivity | null
+  upcoming_epros: NextEproActivity[]
+  symptoms: Array<SymptomEntry & { name: string; scale: 'severity_4' | 'severity_4_inverse' }>
+  next_visit: { id: string; name: string; timing_label: string; is_today: boolean } | null
+  greeting: string
 }
 
 export type RideStatus =

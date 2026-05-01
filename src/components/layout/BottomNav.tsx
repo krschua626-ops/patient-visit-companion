@@ -1,13 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import { Home, ClipboardList } from 'lucide-react'
 import { cn } from '../../lib/cn'
-import { useSession } from '../../state/sessionStore'
 
 export function BottomNav() {
-  const { visitId } = useSession()
   const items = [
     { to: '/', label: 'Home', icon: Home, end: true },
-    { to: `/visit/${visitId}`, label: 'Visit', icon: ClipboardList, end: false },
+    { to: '/visit', label: 'Visit', icon: ClipboardList, end: false },
   ]
   return (
     <nav className="border-t border-stone-200 bg-white/95 backdrop-blur shrink-0">

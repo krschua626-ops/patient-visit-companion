@@ -22,6 +22,42 @@
     "support_phone": "(555) 014-2230",
     "policy_summary": "All trips to and from your study visits are covered by the sponsor. You can book a ride directly from this app — no Uber account or payment needed."
   },
+  "epro_assessments": [
+    {
+      "id": "daily_symptom_diary",
+      "name": "Daily Symptom Diary",
+      "description": "A quick check-in about how you're feeling today — fatigue, nausea, pain, sleep, and a couple of other items.",
+      "estimated_minutes": 4,
+      "frequency": "daily",
+      "due_time_local": "20:00",
+      "instrument": "PRO-CTCAE"
+    },
+    {
+      "id": "weekly_wellbeing",
+      "name": "Weekly Wellbeing Questionnaire",
+      "description": "A standard quality-of-life questionnaire that helps the team understand how the trial is going for you.",
+      "estimated_minutes": 12,
+      "frequency": "weekly",
+      "due_day": "sunday",
+      "due_time_local": "20:00",
+      "instrument": "EORTC QLQ-C30"
+    },
+    {
+      "id": "pre_visit_check",
+      "name": "Pre-Visit Check-In",
+      "description": "A short questionnaire to complete the morning of your visit. Helps your study team prepare.",
+      "estimated_minutes": 5,
+      "frequency": "per_visit",
+      "instrument": "Custom"
+    }
+  ],
+  "tracked_symptoms": [
+    { "id": "fatigue", "name": "Fatigue", "scale": "severity_4" },
+    { "id": "nausea", "name": "Nausea", "scale": "severity_4" },
+    { "id": "pain", "name": "Pain", "scale": "severity_4" },
+    { "id": "appetite", "name": "Appetite", "scale": "severity_4_inverse" },
+    { "id": "sleep_quality", "name": "Sleep quality", "scale": "severity_4_inverse" }
+  ],
   "visits": [
     {
       "id": "SCR",

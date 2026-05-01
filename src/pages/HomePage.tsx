@@ -3,6 +3,7 @@ import { Calendar, Clock, MapPin, ArrowRight, CheckCircle2, AlertCircle } from '
 import { PageHeader } from '../components/layout/PageHeader'
 import { Card, CardBody } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
+import { TransportationCard } from '../components/TransportationCard'
 import { useSession } from '../state/sessionStore'
 import { usePatientContext, formatDuration } from '../lib/usePatientContext'
 
@@ -15,7 +16,7 @@ function greetingFor(name: string): string {
 
 export function HomePage() {
   const { patientId, visitId, timeOffset } = useSession()
-  const { data, loading, error } = usePatientContext(patientId, visitId, timeOffset)
+  const { data, loading, error, refetch } = usePatientContext(patientId, visitId, timeOffset)
 
   if (loading) {
     return (
@@ -35,7 +36,8 @@ export function HomePage() {
   }
 
   const { patient, visit, timing, study, outstanding_tasks } = data
-  const pending = outstanding_tasks.filter((t) => t.status === 'pending').length
+  const filteredTasks = outstanding_tasks.filter((t) => t.id !== 'transport_arranged')
+  const pending = filteredTasks.filter((t) => t.status === 'pending').length
   const isPast = timing.is_past
   const greeting = greetingFor(patient.first_name)
 
@@ -98,6 +100,10 @@ export function HomePage() {
           </Link>
         </div>
 
+        {timeOffset !== 'days_plus_3' && (
+          <TransportationCard context={data} timeOffset={timeOffset} onChanged={refetch} />
+        )}
+
         {!isPast && pending > 0 && (
           <div>
             <p className="text-xs font-medium text-stone-500 uppercase tracking-wide mb-2">
@@ -106,7 +112,7 @@ export function HomePage() {
             <Card>
               <CardBody className="py-3.5">
                 <ul className="divide-y divide-stone-100">
-                  {outstanding_tasks.map((t) => (
+                  {filteredTasks.map((t) => (
                     <li key={t.id} className="flex items-start gap-3 py-2.5 first:pt-0 last:pb-0">
                       {t.status === 'done' ? (
                         <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />

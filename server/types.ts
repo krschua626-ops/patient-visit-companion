@@ -27,6 +27,26 @@ export interface Visit {
   overrides: Record<string, unknown>
 }
 
+export interface PatientTransportation {
+  home_address: string
+  default_vehicle_preference: 'uberx' | 'uber_comfort' | 'uber_xl' | 'wav'
+  wheelchair_accessible_required: boolean
+  ride_with_caregiver_default: boolean
+  notes_for_driver: string
+}
+
+export interface StudyTransportation {
+  provider: string
+  sponsor_paid: boolean
+  site_address: string
+  default_pickup_buffer_minutes: number
+  post_visit_pickup_buffer_minutes: number
+  supports_caregiver_rider: boolean
+  supports_wheelchair_accessible: boolean
+  support_phone: string
+  policy_summary: string
+}
+
 export interface Patient {
   id: string
   name: string
@@ -42,6 +62,43 @@ export interface Patient {
   accessibility_flags: Array<{ type: string; description: string }>
   personality_notes: string
   caregiver: { name: string; relationship: string } | null
+  transportation: PatientTransportation
+}
+
+export type RideStatus =
+  | 'not_booked'
+  | 'booking'
+  | 'confirmed'
+  | 'driver_assigned'
+  | 'en_route_to_pickup'
+  | 'arrived_at_pickup'
+  | 'in_transit'
+  | 'completed'
+  | 'cancelled'
+
+export type RideLeg = 'outbound' | 'return'
+
+export interface Ride {
+  id: string
+  patient_id: string
+  visit_id: string
+  leg: RideLeg
+  status: RideStatus
+  pickup_address: string
+  dropoff_address: string
+  scheduled_pickup_iso: string
+  vehicle_preference: PatientTransportation['default_vehicle_preference']
+  wheelchair_accessible: boolean
+  with_caregiver: boolean
+  caregiver_name: string | null
+  notes_for_driver: string
+  driver: { name: string; vehicle: string; license_plate: string; rating: number } | null
+  estimated_eta_minutes: number | null
+  estimated_cost_usd: number
+  sponsor_paid: boolean
+  confirmation_code: string
+  booked_at_iso: string
+  status_updated_iso: string
 }
 
 export interface Study {
@@ -57,6 +114,7 @@ export interface Study {
   coordinator_phone: string
   coordinator_hours: string
   after_hours_line: string
+  transportation: StudyTransportation
   visits: Visit[]
   study_faq: Array<{ id: string; question: string; answer: string }>
 }
@@ -91,6 +149,20 @@ export interface PatientVisitContext {
     days_until: number | null
   }
   outstanding_tasks: Array<{ id: string; label: string; status: 'pending' | 'done' }>
+  transportation: {
+    sponsor_paid: boolean
+    provider: string
+    home_address: string
+    site_address: string
+    default_vehicle_preference: PatientTransportation['default_vehicle_preference']
+    wheelchair_accessible_required: boolean
+    caregiver_default: boolean
+    suggested_outbound_pickup_iso: string
+    suggested_return_pickup_iso: string
+    policy_summary: string
+    outbound_ride: Ride | null
+    return_ride: Ride | null
+  }
   briefing_card: string
 }
 

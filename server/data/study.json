@@ -11,6 +11,17 @@
   "coordinator_phone": "(555) 014-2200",
   "coordinator_hours": "Monday to Friday, 8:00 AM to 5:00 PM",
   "after_hours_line": "(555) 014-2911",
+  "transportation": {
+    "provider": "Uber Health",
+    "sponsor_paid": true,
+    "site_address": "240 Riverside Drive, Bayview, CA 94010",
+    "default_pickup_buffer_minutes": 45,
+    "post_visit_pickup_buffer_minutes": 15,
+    "supports_caregiver_rider": true,
+    "supports_wheelchair_accessible": true,
+    "support_phone": "(555) 014-2230",
+    "policy_summary": "All trips to and from your study visits are covered by the sponsor. You can book a ride directly from this app — no Uber account or payment needed."
+  },
   "visits": [
     {
       "id": "SCR",

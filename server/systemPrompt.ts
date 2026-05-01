@@ -35,6 +35,8 @@ ${qa || '    (none cataloged)'}`
     ? visit.pre_requirements.map((r) => `  - ${r.description}`).join('\n')
     : '  (none)'
 
+  const transportationBlock = renderTransportationBlock(ctx)
+
   const languageInstruction =
     patient.language === 'zh'
       ? `The patient prefers Mandarin Chinese (简体中文). RESPOND IN MANDARIN CHINESE in the "reply" field. The "escalation_summary" field, if present, should be in English (it is for the coordinator). All other JSON keys and values stay as specified in English.`
@@ -75,6 +77,9 @@ ${itemsBlock}
 - Pre-visit preparation:
 ${preReqBlock}
 
+# TRANSPORTATION (Uber Health, sponsor-paid)
+${transportationBlock}
+
 # PROCEDURES IN THIS VISIT (this is your authoritative grounding for procedure questions)
 ${proceduresBlock}
 
@@ -95,6 +100,19 @@ You MUST refuse and recommend escalation in any of these cases:
 4. Diagnoses, treatment recommendations, or interpreting test results.
 5. Anything not grounded in the data above. Do not invent procedure details, timings, drug information, or study facts.
 6. Personal opinions about whether the drug is working, whether the trial is a good idea, or comparisons to other treatments.
+7. Cancelling, rescheduling, or substantially changing a booked ride. Confirming or summarizing ride details is fine; modification routes to the coordinator.
+
+# TRANSPORTATION CAPABILITIES (allowed answers, NOT escalation)
+You CAN answer these from the TRANSPORTATION section above:
+- Whether a ride is booked, confirmed, in progress, or completed
+- Driver name, vehicle, license plate, ETA, pickup time, pickup/dropoff addresses, confirmation code
+- Whether the trip is sponsor-paid (it always is)
+- Caregiver-rider eligibility ("can my husband/wife/spouse ride with me")
+- The general "how does the ride work" question (one tap in the app, no Uber account needed)
+You CANNOT do these — route to coordinator or in-app booking flow:
+- Modify a pickup time / change driver / cancel ride (point them to the coordinator at ${studyMeta.coordinator_phone})
+- Book a ride for a date/visit not represented in the grounding
+- Quote prices in absolute dollars to the patient (it's sponsor-paid; cost is irrelevant to them)
 
 # HARD ESCALATION (urgent) — set escalation_recommended=true and tell the patient to act now
 - Chest pain, chest tightness, pressure, or squeezing
@@ -129,6 +147,8 @@ List the specific sources you drew from. Use these exact source labels when appl
 - "Procedure: <patient_friendly_name>" (when referencing a specific procedure)
 - "Study FAQ: <topic>" (when referencing the FAQ — use the FAQ question topic, e.g., "Study FAQ: transportation")
 - "Patient profile" (when referencing patient-specific data like their conmeds or history)
+- "Transportation: outbound ride" or "Transportation: return ride" (when referencing a booked ride's status, driver, ETA, pickup time, or addresses)
+- "Transportation: study policy" (when referencing the sponsor-paid Uber Health policy without an active ride)
 If you refused/escalated and didn't draw from grounding, return ["Refusal — outside grounded scope"] or ["Escalation — symptom triage"].
 
 # LANGUAGE
@@ -141,11 +161,54 @@ Now respond to the patient's message.`
 }
 
 export function summarizeContext(ctx: PatientVisitContext): string {
-  return `${ctx.patient.first_name} (${ctx.patient.id}) | ${ctx.visit.name} ${ctx.timing.label} | ${ctx.visit.procedures.length} procedures, ${ctx.visit.total_duration_minutes}min | conmeds: ${ctx.patient.concomitant_meds.length} | history: ${ctx.patient.history_flags.length}`
+  const ob = ctx.transportation.outbound_ride
+  const rt = ctx.transportation.return_ride
+  const rideSummary = `outbound=${ob?.status ?? 'none'}, return=${rt?.status ?? 'none'}`
+  return `${ctx.patient.first_name} (${ctx.patient.id}) | ${ctx.visit.name} ${ctx.timing.label} | ${ctx.visit.procedures.length} procedures, ${ctx.visit.total_duration_minutes}min | conmeds: ${ctx.patient.concomitant_meds.length} | history: ${ctx.patient.history_flags.length} | rides: ${rideSummary}`
 }
 
 export function summarizePrompt(systemPrompt: string): string {
   const lines = systemPrompt.split('\n')
   const sections = lines.filter((l) => l.startsWith('# ')).map((l) => l.replace(/^# /, ''))
   return `${systemPrompt.length} chars | sections: ${sections.join(', ')}`
+}
+
+function renderTransportationBlock(ctx: PatientVisitContext): string {
+  const tx = ctx.transportation
+  const formatTime = (iso: string) =>
+    new Date(iso).toLocaleString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    })
+
+  const policy = `- Provider: ${tx.provider}; ${tx.sponsor_paid ? 'sponsor-paid (no cost to patient, no Uber account needed)' : 'patient-paid'}.
+- Home address on file: ${tx.home_address}
+- Site address: ${tx.site_address}
+- Patient's default vehicle preference: ${tx.default_vehicle_preference}
+- Caregiver-rider available: ${tx.caregiver_default ? 'yes (defaults to on)' : ctx.patient.caregiver ? 'yes (defaults to off)' : 'no caregiver on file'}
+- Wheelchair accessibility required: ${tx.wheelchair_accessible_required ? 'yes' : 'no'}
+- Suggested outbound pickup: ${formatTime(tx.suggested_outbound_pickup_iso)}
+- Suggested return pickup (after visit): ${formatTime(tx.suggested_return_pickup_iso)}
+- Policy: ${tx.policy_summary}`
+
+  const renderRide = (label: string, ride: typeof tx.outbound_ride) => {
+    if (!ride) return `- ${label}: not booked`
+    const driver = ride.driver
+      ? `${ride.driver.name} (${ride.driver.vehicle}, plate ${ride.driver.license_plate}, ${ride.driver.rating.toFixed(2)}★)`
+      : 'not yet assigned'
+    const eta =
+      ride.estimated_eta_minutes !== null
+        ? `${ride.estimated_eta_minutes} min`
+        : 'n/a'
+    const cg = ride.with_caregiver && ride.caregiver_name ? ` | with ${ride.caregiver_name}` : ''
+    return `- ${label}: status=${ride.status}, scheduled pickup ${formatTime(ride.scheduled_pickup_iso)}, driver: ${driver}, ETA: ${eta}, confirmation ${ride.confirmation_code}, ${ride.pickup_address} → ${ride.dropoff_address}${cg}`
+  }
+
+  return `${policy}
+
+${renderRide('Outbound ride (home → clinic)', tx.outbound_ride)}
+${renderRide('Return ride (clinic → home)', tx.return_ride)}`
 }

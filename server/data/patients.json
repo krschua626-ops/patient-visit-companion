@@ -16,7 +16,14 @@
     "history_flags": [],
     "accessibility_flags": [],
     "personality_notes": "First-time trial participant. Asks lots of questions. Slightly anxious about procedures, especially blood draws. Tech-comfortable.",
-    "caregiver": null
+    "caregiver": null,
+    "transportation": {
+      "home_address": "1842 Larkspur Lane, Apt 4B, Bayview, CA 94010",
+      "default_vehicle_preference": "uberx",
+      "wheelchair_accessible_required": false,
+      "ride_with_caregiver_default": false,
+      "notes_for_driver": ""
+    }
   },
   "james": {
     "id": "james",
@@ -39,7 +46,14 @@
     ],
     "accessibility_flags": [],
     "personality_notes": "Has participated in two prior trials. Low-key, asks practical questions. Interested in logistics and timing.",
-    "caregiver": null
+    "caregiver": null,
+    "transportation": {
+      "home_address": "67 Magnolia Crescent, Bayview, CA 94014",
+      "default_vehicle_preference": "uber_comfort",
+      "wheelchair_accessible_required": false,
+      "ride_with_caregiver_default": false,
+      "notes_for_driver": "Please call on arrival — I'll come down to the lobby."
+    }
   },
   "wei": {
     "id": "wei",
@@ -59,6 +73,13 @@
       { "type": "language_preference", "description": "Prefers all written and spoken communication in Mandarin Chinese." }
     ],
     "personality_notes": "Tech-comfortable. Caregiver (spouse) is involved and often attends visits.",
-    "caregiver": { "name": "Lin Zhang", "relationship": "spouse" }
+    "caregiver": { "name": "Lin Zhang", "relationship": "spouse" },
+    "transportation": {
+      "home_address": "915 Cypress Terrace, Bayview, CA 94011",
+      "default_vehicle_preference": "uberx",
+      "wheelchair_accessible_required": false,
+      "ride_with_caregiver_default": true,
+      "notes_for_driver": ""
+    }
   }
 }

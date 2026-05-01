@@ -1,6 +1,7 @@
 import procedureLibraryRaw from './data/procedureLibrary.json' with { type: 'json' }
 import studyRaw from './data/study.json' with { type: 'json' }
 import patientsRaw from './data/patients.json' with { type: 'json' }
+import { getRidesForVisit } from './rideStore.js'
 import type {
   Patient,
   PatientVisitContext,
@@ -106,6 +107,8 @@ export function assembleContext(
 
   const outstanding_tasks = buildOutstandingTasks(timeOffset)
 
+  const transportation = buildTransportationBlock(patient, visit, timeOffset, total_duration_minutes)
+
   const briefing_card = renderBriefingCard({
     patient,
     visit,
@@ -141,8 +144,65 @@ export function assembleContext(
     },
     timing: { offset: timeOffset, ...timing },
     outstanding_tasks,
+    transportation,
     briefing_card,
   }
+}
+
+function buildTransportationBlock(
+  patient: Patient,
+  visit: Visit,
+  timeOffset: TimeOffset,
+  total_duration_minutes: number,
+): PatientVisitContext['transportation'] {
+  const tx = study.transportation
+  const px = patient.transportation
+  const visitStart = anchorVisitTime(timeOffset)
+  const outboundPickup = new Date(visitStart.getTime() - tx.default_pickup_buffer_minutes * 60_000)
+  const returnPickup = new Date(
+    visitStart.getTime() +
+      total_duration_minutes * 60_000 +
+      tx.post_visit_pickup_buffer_minutes * 60_000,
+  )
+
+  const rides = getRidesForVisit(patient.id, visit.id)
+
+  return {
+    sponsor_paid: tx.sponsor_paid,
+    provider: tx.provider,
+    home_address: px.home_address,
+    site_address: tx.site_address,
+    default_vehicle_preference: px.default_vehicle_preference,
+    wheelchair_accessible_required: px.wheelchair_accessible_required,
+    caregiver_default: px.ride_with_caregiver_default && Boolean(patient.caregiver),
+    suggested_outbound_pickup_iso: outboundPickup.toISOString(),
+    suggested_return_pickup_iso: returnPickup.toISOString(),
+    policy_summary: tx.policy_summary,
+    outbound_ride: rides.outbound,
+    return_ride: rides.return,
+  }
+}
+
+function anchorVisitTime(timeOffset: TimeOffset): Date {
+  const now = new Date()
+  const visit = new Date(now)
+  visit.setHours(9, 30, 0, 0)
+  switch (timeOffset) {
+    case 'days_minus_3':
+      visit.setDate(visit.getDate() + 3)
+      break
+    case 'days_minus_1':
+      visit.setDate(visit.getDate() + 1)
+      break
+    case 'morning_of':
+      break
+    case 'post_visit':
+      break
+    case 'days_plus_3':
+      visit.setDate(visit.getDate() - 14)
+      break
+  }
+  return visit
 }
 
 function buildOutstandingTasks(

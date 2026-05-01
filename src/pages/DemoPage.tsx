@@ -11,6 +11,7 @@ import {
   Coffee,
   Pill,
   Sparkles,
+  Car,
 } from 'lucide-react'
 import { Card, CardBody } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
@@ -32,6 +33,8 @@ const SCENARIO_ICONS: Record<string, typeof Sparkles> = {
   symptom_hard_escalation: ShieldAlert,
   multilingual: Languages,
   out_of_scope: HelpCircle,
+  ride_first_book: Car,
+  ride_day_of_status: Car,
 }
 
 const TIME_OFFSETS: TimeOffset[] = [

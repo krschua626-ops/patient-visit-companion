@@ -4,7 +4,6 @@ import {
   Sparkles,
   CheckCircle2,
   MapPin,
-  ArrowRight,
   ShieldCheck,
   Star,
   Phone,
@@ -174,7 +173,7 @@ function UnbookedCard({
     : tx.policy_summary
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden transition-shadow hover:shadow-md">
       <button onClick={onBook} className="w-full text-left">
         <div className="bg-gradient-to-br from-primary-50 via-white to-stone-50 border-b border-stone-100 px-5 py-4">
           <div className="flex items-start gap-3">
@@ -196,10 +195,7 @@ function UnbookedCard({
         </div>
         <CardBody className="py-3.5">
           <p className="text-xs text-stone-600 leading-relaxed mb-3">{policy}</p>
-          <div className="flex items-center justify-between text-sm font-medium text-primary-700">
-            <span>{cta}</span>
-            <ArrowRight className="h-4 w-4" />
-          </div>
+          <p className="text-sm font-medium text-primary-700">{cta}</p>
         </CardBody>
       </button>
     </Card>

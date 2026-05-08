@@ -192,6 +192,7 @@ export interface ChatMessage extends ChatTurn {
   grounding_sources?: string[]
   suggested_actions?: SuggestedAction[]
   highlights?: string[]
+  created_reminders?: CreatedReminder[]
   isPending?: boolean
   isError?: boolean
 }
@@ -202,6 +203,13 @@ export interface SuggestedAction {
   value: string
 }
 
+export interface CreatedReminder {
+  id?: string
+  what: string
+  when_iso: string
+  when_label: string
+}
+
 export interface ChatResponse {
   reply: string
   confidence: 'high' | 'medium' | 'low'
@@ -210,6 +218,18 @@ export interface ChatResponse {
   grounding_sources: string[]
   suggested_actions?: SuggestedAction[]
   highlights?: string[]
+  created_reminders?: CreatedReminder[]
+}
+
+export interface Reminder {
+  id: string
+  patient_id: string
+  what: string
+  when_iso: string
+  when_label: string
+  created_at_iso: string
+  source: 'chat' | 'manual'
+  status: 'active' | 'completed' | 'cancelled'
 }
 
 export interface AuditEntry {

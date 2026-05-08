@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { getAuditLog, resetAuditLog } from '../auditLog.js'
 import { resetRides } from '../rideStore.js'
 import { resetCompletions } from '../eproStore.js'
+import { resetReminders } from '../reminderStore.js'
 
 export const auditRouter = Router()
 
@@ -13,5 +14,6 @@ auditRouter.post('/reset', (_req, res) => {
   resetAuditLog()
   resetRides()
   resetCompletions()
+  resetReminders()
   res.json({ status: 'reset' })
 })

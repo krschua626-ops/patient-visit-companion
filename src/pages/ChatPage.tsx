@@ -98,6 +98,7 @@ export function ChatPage() {
         grounding_sources: res.grounding_sources,
         suggested_actions: res.suggested_actions,
         highlights: res.highlights,
+        created_reminders: res.created_reminders,
       })
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong'

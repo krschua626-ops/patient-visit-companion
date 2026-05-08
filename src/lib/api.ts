@@ -5,6 +5,7 @@ import type {
   HomeContext,
   Patient,
   PatientVisitContext,
+  Reminder,
   Ride,
   RideLeg,
   TimeOffset,
@@ -39,6 +40,16 @@ export async function fetchHomeContext(
 export async function completeEpro(patientId: string, assessmentId: string): Promise<void> {
   const r = await fetch(`/api/epro/${patientId}/${assessmentId}/complete`, { method: 'POST' })
   if (!r.ok) throw new Error(`Complete failed (${r.status})`)
+}
+
+export async function fetchReminders(patientId: string): Promise<Reminder[]> {
+  const r = await fetch(`/api/reminders/${patientId}`)
+  if (!r.ok) throw new Error(`Reminders fetch failed (${r.status})`)
+  return r.json()
+}
+
+export async function deleteReminder(patientId: string, id: string): Promise<void> {
+  await fetch(`/api/reminders/${patientId}/${id}`, { method: 'DELETE' })
 }
 
 export async function fetchAuditLog(): Promise<AuditEntry[]> {

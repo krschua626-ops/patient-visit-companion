@@ -3,6 +3,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { assembleContext, getStudy } from '../contextAssembler.js'
 import { buildSystemPrompt, summarizeContext, summarizePrompt } from '../systemPrompt.js'
 import { logAuditEntry } from '../auditLog.js'
+import { createReminder } from '../reminderStore.js'
 import type { ChatResponse, ChatTurn, TimeOffset } from '../types.js'
 
 const MODEL = process.env.CLAUDE_MODEL || 'claude-sonnet-4-5'
@@ -62,6 +63,19 @@ chatRouter.post('/chat', async (req, res) => {
       .join('')
 
     parsed = parseChatJson(rawText)
+
+    if (parsed.created_reminders && parsed.created_reminders.length > 0) {
+      parsed.created_reminders = parsed.created_reminders.map((r) => {
+        const saved = createReminder({
+          patient_id: patientId,
+          what: r.what,
+          when_iso: r.when_iso,
+          when_label: r.when_label,
+          source: 'chat',
+        })
+        return { ...r, id: saved.id }
+      }) as typeof parsed.created_reminders
+    }
   } catch (err: unknown) {
     const errorMsg = err instanceof Error ? err.message : String(err)
     console.error('Chat error:', errorMsg)
@@ -116,6 +130,16 @@ function parseChatJson(text: string): ChatResponse {
   const highlights = Array.isArray(parsed.highlights)
     ? parsed.highlights.filter((s): s is string => typeof s === 'string').slice(0, 3)
     : []
+  const reminders = Array.isArray(parsed.created_reminders)
+    ? parsed.created_reminders.filter(
+        (r): r is { what: string; when_iso: string; when_label: string } =>
+          r !== null &&
+          typeof r === 'object' &&
+          typeof (r as { what?: unknown }).what === 'string' &&
+          typeof (r as { when_iso?: unknown }).when_iso === 'string' &&
+          typeof (r as { when_label?: unknown }).when_label === 'string',
+      ).slice(0, 5)
+    : []
   return {
     reply: typeof parsed.reply === 'string' ? parsed.reply : '',
     confidence:
@@ -129,5 +153,6 @@ function parseChatJson(text: string): ChatResponse {
       : [],
     suggested_actions: actions.slice(0, 3),
     highlights,
+    created_reminders: reminders,
   }
 }

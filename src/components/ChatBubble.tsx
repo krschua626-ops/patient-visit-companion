@@ -4,6 +4,7 @@ import { EscalationCard } from './EscalationCard'
 import { MessageContent } from './MessageContent'
 import { HighlightChips } from './HighlightChips'
 import { SuggestedActions } from './SuggestedActions'
+import { ReminderConfirmCard } from './ReminderConfirmCard'
 import { cn } from '../lib/cn'
 import type { ChatMessage } from '../lib/types'
 
@@ -71,6 +72,10 @@ export function ChatBubble({ message, coordinatorName, coordinatorPhone, onPromp
             </>
           )}
         </div>
+
+        {!message.isPending && !message.isError && message.created_reminders && message.created_reminders.length > 0 && (
+          <ReminderConfirmCard reminders={message.created_reminders} />
+        )}
 
         {!message.isPending && !message.isError && message.suggested_actions && message.suggested_actions.length > 0 && (
           <SuggestedActions actions={message.suggested_actions} onPrompt={onPrompt} />

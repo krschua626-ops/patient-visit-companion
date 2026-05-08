@@ -242,6 +242,12 @@ export interface SuggestedAction {
   value: string
 }
 
+export interface CreatedReminder {
+  what: string
+  when_iso: string
+  when_label: string
+}
+
 export interface ChatResponse {
   reply: string
   confidence: 'high' | 'medium' | 'low'
@@ -250,6 +256,7 @@ export interface ChatResponse {
   grounding_sources: string[]
   suggested_actions?: SuggestedAction[]
   highlights?: string[]
+  created_reminders?: CreatedReminder[]
 }
 
 export interface AuditEntry {

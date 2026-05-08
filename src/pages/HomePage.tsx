@@ -6,6 +6,7 @@ import { Card, CardBody } from '../components/ui/Card'
 import { Badge } from '../components/ui/Badge'
 import { EproCard } from '../components/EproCard'
 import { EproSheet } from '../components/EproSheet'
+import { RemindersCard } from '../components/RemindersCard'
 import { useSession } from '../state/sessionStore'
 import { useHomeContext } from '../lib/useHomeContext'
 import type { NextEproActivity } from '../lib/types'
@@ -48,6 +49,8 @@ export function HomePage() {
       <PageHeader title={greeting} subtitle={`${study.short_title} · ${patient.cohort}`} />
 
       <div className="flex-1 overflow-y-auto p-5 space-y-5 pb-24">
+        <RemindersCard patientId={patient.id} />
+
         {next_epro && (
           <div>
             <p className="text-xs font-medium text-stone-500 uppercase tracking-wide mb-2">

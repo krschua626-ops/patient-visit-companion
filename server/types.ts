@@ -236,12 +236,20 @@ export interface ChatTurn {
   content: string
 }
 
+export interface SuggestedAction {
+  label: string
+  kind: 'prompt' | 'link' | 'tel'
+  value: string
+}
+
 export interface ChatResponse {
   reply: string
   confidence: 'high' | 'medium' | 'low'
   escalation_recommended: boolean
   escalation_summary?: string
   grounding_sources: string[]
+  suggested_actions?: SuggestedAction[]
+  highlights?: string[]
 }
 
 export interface AuditEntry {

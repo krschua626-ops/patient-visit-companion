@@ -190,8 +190,16 @@ export interface ChatMessage extends ChatTurn {
   escalation_recommended?: boolean
   escalation_summary?: string
   grounding_sources?: string[]
+  suggested_actions?: SuggestedAction[]
+  highlights?: string[]
   isPending?: boolean
   isError?: boolean
+}
+
+export interface SuggestedAction {
+  label: string
+  kind: 'prompt' | 'link' | 'tel'
+  value: string
 }
 
 export interface ChatResponse {
@@ -200,6 +208,8 @@ export interface ChatResponse {
   escalation_recommended: boolean
   escalation_summary?: string
   grounding_sources: string[]
+  suggested_actions?: SuggestedAction[]
+  highlights?: string[]
 }
 
 export interface AuditEntry {

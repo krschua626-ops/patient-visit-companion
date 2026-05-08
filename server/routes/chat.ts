@@ -101,6 +101,21 @@ function parseChatJson(text: string): ChatResponse {
   }
 
   const parsed = JSON.parse(candidate) as Partial<ChatResponse>
+  const actions = Array.isArray(parsed.suggested_actions)
+    ? parsed.suggested_actions.filter(
+        (a): a is { label: string; kind: 'prompt' | 'link' | 'tel'; value: string } =>
+          a !== null &&
+          typeof a === 'object' &&
+          typeof (a as { label?: unknown }).label === 'string' &&
+          typeof (a as { value?: unknown }).value === 'string' &&
+          ((a as { kind?: unknown }).kind === 'prompt' ||
+            (a as { kind?: unknown }).kind === 'link' ||
+            (a as { kind?: unknown }).kind === 'tel'),
+      )
+    : []
+  const highlights = Array.isArray(parsed.highlights)
+    ? parsed.highlights.filter((s): s is string => typeof s === 'string').slice(0, 3)
+    : []
   return {
     reply: typeof parsed.reply === 'string' ? parsed.reply : '',
     confidence:
@@ -112,5 +127,7 @@ function parseChatJson(text: string): ChatResponse {
     grounding_sources: Array.isArray(parsed.grounding_sources)
       ? parsed.grounding_sources.filter((s): s is string => typeof s === 'string')
       : [],
+    suggested_actions: actions.slice(0, 3),
+    highlights,
   }
 }

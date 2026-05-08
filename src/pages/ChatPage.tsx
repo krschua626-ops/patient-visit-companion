@@ -96,6 +96,8 @@ export function ChatPage() {
         escalation_recommended: res.escalation_recommended,
         escalation_summary: res.escalation_summary,
         grounding_sources: res.grounding_sources,
+        suggested_actions: res.suggested_actions,
+        highlights: res.highlights,
       })
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong'
@@ -162,6 +164,7 @@ export function ChatPage() {
             message={m}
             coordinatorName={data?.study.coordinator_name ?? 'your study coordinator'}
             coordinatorPhone={data?.study.coordinator_phone ?? ''}
+            onPrompt={(t) => void send(t)}
           />
         ))}
       </div>

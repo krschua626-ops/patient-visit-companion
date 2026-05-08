@@ -1,5 +1,9 @@
+import { CheckCircle2, AlertCircle, HelpCircle } from 'lucide-react'
 import { SourcePill } from './SourcePill'
 import { EscalationCard } from './EscalationCard'
+import { MessageContent } from './MessageContent'
+import { HighlightChips } from './HighlightChips'
+import { SuggestedActions } from './SuggestedActions'
 import { cn } from '../lib/cn'
 import type { ChatMessage } from '../lib/types'
 
@@ -7,9 +11,22 @@ interface ChatBubbleProps {
   message: ChatMessage
   coordinatorName: string
   coordinatorPhone: string
+  onPrompt: (text: string) => void
 }
 
-export function ChatBubble({ message, coordinatorName, coordinatorPhone }: ChatBubbleProps) {
+const CONFIDENCE_LABEL: Record<'high' | 'medium' | 'low', string> = {
+  high: 'High confidence',
+  medium: 'Some uncertainty',
+  low: 'Low confidence',
+}
+
+const CONFIDENCE_TONE: Record<'high' | 'medium' | 'low', string> = {
+  high: 'text-green-700',
+  medium: 'text-amber-700',
+  low: 'text-stone-500',
+}
+
+export function ChatBubble({ message, coordinatorName, coordinatorPhone, onPrompt }: ChatBubbleProps) {
   if (message.role === 'user') {
     return (
       <div className="flex justify-end">
@@ -20,14 +37,21 @@ export function ChatBubble({ message, coordinatorName, coordinatorPhone }: ChatB
     )
   }
 
+  const ConfidenceIcon =
+    message.confidence === 'high'
+      ? CheckCircle2
+      : message.confidence === 'medium'
+        ? AlertCircle
+        : HelpCircle
+
   return (
     <div className="flex justify-start">
       <div className="max-w-[88%] space-y-2">
         <div
           className={cn(
-            'rounded-2xl rounded-bl-sm bg-white border border-stone-200 px-3.5 py-2.5 text-sm leading-relaxed text-stone-800 whitespace-pre-wrap',
-            message.isPending && 'text-stone-400',
-            message.isError && 'border-red-200 bg-red-50 text-red-700',
+            'rounded-2xl rounded-bl-sm bg-white border border-stone-200 px-3.5 py-3 text-sm leading-relaxed text-stone-800',
+            message.isPending && 'text-stone-400 py-2.5',
+            message.isError && 'border-red-200 bg-red-50 text-red-700 py-2.5',
           )}
         >
           {message.isPending ? (
@@ -36,16 +60,39 @@ export function ChatBubble({ message, coordinatorName, coordinatorPhone }: ChatB
               <Dot delay={150} />
               <Dot delay={300} />
             </span>
+          ) : message.isError ? (
+            <span className="whitespace-pre-wrap">{message.content}</span>
           ) : (
-            message.content
+            <>
+              {message.highlights && message.highlights.length > 0 && (
+                <HighlightChips highlights={message.highlights} />
+              )}
+              <MessageContent text={message.content} />
+            </>
           )}
         </div>
 
-        {!message.isPending && message.grounding_sources && message.grounding_sources.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {message.grounding_sources.map((s, i) => (
-              <SourcePill key={i} label={s} />
-            ))}
+        {!message.isPending && !message.isError && message.suggested_actions && message.suggested_actions.length > 0 && (
+          <SuggestedActions actions={message.suggested_actions} onPrompt={onPrompt} />
+        )}
+
+        {!message.isPending && !message.isError && (
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            {message.grounding_sources && message.grounding_sources.length > 0 ? (
+              <div className="flex flex-wrap gap-1.5 flex-1 min-w-0">
+                {message.grounding_sources.map((s, i) => (
+                  <SourcePill key={i} label={s} />
+                ))}
+              </div>
+            ) : (
+              <span />
+            )}
+            {message.confidence && (
+              <span className={cn('inline-flex items-center gap-1 text-[11px] font-medium', CONFIDENCE_TONE[message.confidence])}>
+                <ConfidenceIcon className="h-3 w-3" strokeWidth={2.5} />
+                {CONFIDENCE_LABEL[message.confidence]}
+              </span>
+            )}
           </div>
         )}
 
